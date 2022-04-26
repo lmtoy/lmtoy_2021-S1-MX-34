@@ -1,0 +1,41 @@
+#! /usr/bin/env bash
+#
+#  edit and run this script to update the run scripts for the pipeline
+#
+
+common="admit=0 restart=1"
+
+project="2021-S1-MX-34"
+
+
+# good ones for the combination
+on1="98436 98437 98438 98443 98444 98445 98448 98449 98450 98469 98470 98471"
+
+# bad ones to be fully removed from final combination
+on1b=""
+
+
+obsnums="$on1 $on1b"
+
+
+#                       create the run file for single obsnum runs, also incoorporate any obsnum specific arguments
+job1=$project.run1
+job2=$project.run2
+rm -f $job1 $job2
+touch $job1 $job2
+for o in $obsnums ; do
+    if [ -e $o.args ]; then
+	args=$(cat $o.args)
+    fi
+    echo SLpipeline.sh obsnum=$o $common $args >> $job1
+    args=""
+done
+
+#                       create the run file for combination runs
+
+echo SLpipeline.sh obsnums=$(echo $on1 | sed 's/ /,/g') srdp=1 >> $job2
+
+echo "Found $(cat $job1 | wc -l) single obsnums in $job1"
+echo "Found $(cat $job2 | wc -l) combinations in $job2"
+echo "Have fun running them."
+
