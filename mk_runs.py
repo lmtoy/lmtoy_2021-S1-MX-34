@@ -1,12 +1,12 @@
 #! /usr/bin/env python
 #
-#   script generator for project="2021-S1-UM-11"
+#   script generator for project="2021-S1-MX-34"
 #
 
 import os
 import sys
 
-project="2021-S1-UM-11"
+project="2021-S1-MX-34"
 
 #        obsnums per source (make it negative if not added to the final combination)
 #  initial test cases are J113833 and J132227 (where the J was accidentally dropped from the name)
